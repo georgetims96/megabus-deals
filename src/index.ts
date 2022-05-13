@@ -1,10 +1,19 @@
 import express, { Express, Request, Response} from "express";
-const app : Express = express();
-const port : number = 8080;
+import path from "path";
+import dotenv from "dotenv";
 
-app.get("/", (req : Request, res: Response) => {
-    res.send("<b>Hello world</b>");
-});
+import * as routes from "./routes";
+
+// Set up configuration
+dotenv.config()
+
+const app : Express = express();
+const port : string = process.env.SERVER_PORT;
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+routes.register(app);
 
 app.listen(port, () => {
     // tslint:disable-next-line:no-console
