@@ -1,4 +1,5 @@
 import express, { Application, Request, Response} from "express";
+import { getValidDates, getJourneyOnDate, getJourneysOnDates } from "./api";
 
 export function register(app : Application) : void {
 
