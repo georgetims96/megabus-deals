@@ -7,7 +7,14 @@ export function register(app : Application) : void {
         res.render("index");
     });
 
-    app.get("/deals", (req : Request, res : Response) => {
-        res.send("TBD");
+    // Deal page
+    app.post("/search", (req : Request, res : Response) => {
+        res.render("search", {data: req.body, myName: "James"});
     });
+
+    // Deal page
+    app.get("/search", (req : Request, res : Response) => {
+        res.render("search", {data: req.body});
+    });
+
 }
