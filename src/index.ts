@@ -10,13 +10,17 @@ dotenv.config()
 const app : Express = express();
 const port : string = process.env.SERVER_PORT;
 
+// Set up EJS templating
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// Set up post request
 app.use(express.urlencoded());
 
+// Set up routes
 routes.register(app);
 
+// Run server
 app.listen(port, () => {
     // tslint:disable-next-line:no-console
     console.log(`Server listening at port ${port}`);

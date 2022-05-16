@@ -3,8 +3,12 @@
     <title>1-Dollar Journeys</title>
   </head>
 <body>
-<b>Here</b>
-<%= myName %>
-<%= data.outDateSelection %> 
+  <b>Here</b>
+  <%= myName %>
+  <%= data.outDateSelection %>
+  <% dates.forEach(varI => { %>
+  <br/ >
+  <%= varI %>
+  <% }); %> 
 </body>
 </html>
