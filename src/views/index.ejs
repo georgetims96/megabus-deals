@@ -19,10 +19,19 @@
       <form action="/search" method="post">
         <div class="form-group">
           <label>Source</label>
-
+          <select class="form-control" name="sourceCity" id="sourceCity">
+            <% cities.forEach(city => { %>
+            <option><%= city.name %></option>
+            <% }); %>
+          </select>
         </div>
         <div class="form-group">
           <label>Destination</label>
+          <select class="form-control" name="destinationCity" id="destinationCity">
+            <% cities.forEach(city => { %>
+            <option><%= city.name %></option>
+            <% }); %>
+          </select>
         </div>
         <div class="form-group">
           <label>Out Day</label>

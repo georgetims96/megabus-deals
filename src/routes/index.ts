@@ -1,11 +1,11 @@
 import express, { Application, Request, Response} from "express";
-import { getValidDates } from "./api";
+import { getValidDates, ORIGIN_CITIES } from "./api";
 
 export function register(app : Application) : void {
 
   // Homepage
   app.get("/", (req : Request, res : Response) => {
-    res.render("index");
+    res.render("index", {cities: ORIGIN_CITIES.cities});
   });
 
   // Deal page
@@ -15,7 +15,7 @@ export function register(app : Application) : void {
     // TODO
     // Then get all matching jouneys that cost $1
     // tslint:disable-next-line:no-console
-    console.log(validDates);
+    console.log(ORIGIN_CITIES.cities);
     res.render("search", {data: req.body, myName: "James", dates: validDates});
   });
 
