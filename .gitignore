@@ -1,6 +1,7 @@
 # Items to ignore    
 node_modules/
 dist/
+**/.DS_Store
 *.swp
 *.swo
 origin_cities.txt

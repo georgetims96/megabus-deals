@@ -1,11 +1,13 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>1-Dollar Journeys</title>
+    <%- include('partials/head.ejs') %>
   </head>
 <body>
   <b>Here</b>
   <%= myName %>
-  <%= data.outDateSelection %>
+  <%= data.destinationCity %>
   <% dates.forEach(varI => { %>
   <br/ >
   <%= varI %>

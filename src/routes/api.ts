@@ -1,9 +1,27 @@
-import axios from 'axios';
+import axios from 'axios';// tslint:disable-next-line:no-console
 
 // Given a route between an origin and destination, returns an array of dates on which there are journeys
-export async function getValidDates(originId: number, destinationId: number) : Promise<any[]> {
+export async function getValidDates(originName: string, destinationName: string) : Promise<any[]> {
+  const originId : number = getCityId(originName);
+  const destinationId : number = getCityId(destinationName);
+  // tslint:disable-next-line:no-console
+  console.log(`Origin ID: ${originId}, Destination ID: ${destinationId}`);// tslint:disable-next-line:no-console
   const response = await axios.get(`https://us.megabus.com/journey-planner/api/journeys/travel-dates?destinationCityId=${destinationId}&originCityId=${originId}`);
   return response.data.availableDates;
+}
+
+// Gets city ID given city's name
+function getCityId(cityName: string) : number {
+  let cityId : number = -1;
+  // Loop through cities, looking for one with passed name
+  ORIGIN_CITIES.cities.forEach((city) => {
+    if (city.name === cityName) {
+      // If we find it, return the ID
+      cityId = city.id;
+    }
+  });
+  // If we get here, we haven't found it
+  return cityId;
 }
 /*
 // Given a route and date, return all journeys
@@ -38,7 +56,7 @@ type CityData = {
 // FIXME move to config file?
 export const ORIGIN_CITIES : CityData = {
     "cities": [
-        {
+        {// tslint:disable-next-line:no-console
             "id": 542,
             "name": "Abbotsford, WI",
             "latitude": 44.946358,
@@ -123,7 +141,7 @@ export const ORIGIN_CITIES : CityData = {
             "longitude": -75.91127
         },
         {
-            "id": 292,
+            "id": 292,// tslint:disable-next-line:no-console
             "name": "Birmingham, AL",
             "latitude": 33.52029,
             "longitude": -86.8115
@@ -188,7 +206,7 @@ export const ORIGIN_CITIES : CityData = {
             "latitude": 44.936905,
             "longitude": -91.39294
         },
-        {
+        {// tslint:disable-next-line:no-console
             "id": 101,
             "name": "Christiansburg, VA",
             "latitude": 37.13014,
@@ -264,7 +282,7 @@ export const ORIGIN_CITIES : CityData = {
             "id": 539,
             "name": "Eau Claire, WI",
             "latitude": 44.811348,
-            "longitude": -91.4985
+            "longitude": -91.4985// tslint:disable-next-line:no-console
         },
         {
             "id": 572,
@@ -497,7 +515,7 @@ export const ORIGIN_CITIES : CityData = {
         {
             "id": 476,
             "name": "Norfolk, VA",
-            "latitude": 36.83703,
+            "latitude": 36.83703,// tslint:disable-next-line:no-console
             "longitude": -76.28082
         },
         {
@@ -706,3 +724,13 @@ export const ORIGIN_CITIES : CityData = {
         }
     ]
 };
+
+const DATE_MAP : Map<string, number> = new Map<string, number> ([
+    ["Monday", 0],
+    ["Tuesday", 1],
+    ["Wednesday", 2],
+    ["Thursday", 3],
+    ["Friday", 4],
+    ["Saturday", 5],
+    ["Sunday", 6]
+  ]);// tslint:disable-next-line:no-console
