@@ -1,13 +1,19 @@
-import axios from 'axios';// tslint:disable-next-line:no-console
+import axios from 'axios';
 
 // Given a route between an origin and destination, returns an array of dates on which there are journeys
-export async function getValidDates(originName: string, destinationName: string) : Promise<any[]> {
+export async function getValidDates(originName: string, destinationName: string, day: string) : Promise<any[]> {
   const originId : number = getCityId(originName);
   const destinationId : number = getCityId(destinationName);
   // tslint:disable-next-line:no-console
   console.log(`Origin ID: ${originId}, Destination ID: ${destinationId}`);// tslint:disable-next-line:no-console
   const response = await axios.get(`https://us.megabus.com/journey-planner/api/journeys/travel-dates?destinationCityId=${destinationId}&originCityId=${originId}`);
-  return response.data.availableDates;
+  const dayVal : number = DATE_MAP.get(day);
+  // tslint:disable-next-line:no-console
+  console.log(dayVal);
+  return response.data.availableDates.filter((date : string) => {
+    const formattedDate : Date = new Date(date);
+    return formattedDate.getDay() === dayVal;
+  });
 }
 
 // Gets city ID given city's name
@@ -56,7 +62,7 @@ type CityData = {
 // FIXME move to config file?
 export const ORIGIN_CITIES : CityData = {
     "cities": [
-        {// tslint:disable-next-line:no-console
+        {
             "id": 542,
             "name": "Abbotsford, WI",
             "latitude": 44.946358,
@@ -733,4 +739,4 @@ const DATE_MAP : Map<string, number> = new Map<string, number> ([
     ["Friday", 4],
     ["Saturday", 5],
     ["Sunday", 6]
-  ]);// tslint:disable-next-line:no-console
+  ]);

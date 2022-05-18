@@ -12,10 +12,11 @@ export function register(app : Application) : void {
   // Deal page
   app.post("/search", async (req : Request, res : Response) => {
     // First get valid dates
-    const validDates = await getValidDates(req.body.sourceCity, req.body.destinationCity);
+    const validDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.outDateSelection);
     // TODO
     // Then get all matching jouneys that cost $1
     // tslint:disable-next-line:no-console
+    console.log(validDates);
     res.render("search", {data: req.body, myName: "James", dates: validDates});
   });
 
