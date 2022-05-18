@@ -12,12 +12,14 @@ export function register(app : Application) : void {
   // Deal page
   app.post("/search", async (req : Request, res : Response) => {
     // First get valid dates
-    const validDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.outDateSelection);
+    const validOutDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.outDateSelection);
+    const validReturnDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.returnDateSelection);
+
     // TODO
     // Then get all matching jouneys that cost $1
     // tslint:disable-next-line:no-console
-    console.log(validDates);
-    res.render("search", {data: req.body, myName: "James", dates: validDates});
+    console.log(validReturnDates);
+    res.render("search", {data: req.body, outDates: validOutDates, returnDates: validReturnDates });
   });
 
 }
