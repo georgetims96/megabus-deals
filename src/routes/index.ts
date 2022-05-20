@@ -1,5 +1,5 @@
 import express, { Application, Request, Response} from "express";
-import { getValidDates, ORIGIN_CITIES } from "./api";
+import { getValidDates, ORIGIN_CITIES, getJourneysOnDates} from "./api";
 
 export function register(app : Application) : void {
 
@@ -15,11 +15,12 @@ export function register(app : Application) : void {
     const validOutDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.outDateSelection);
     const validReturnDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.returnDateSelection);
 
-    // TODO
     // Then get all matching jouneys that cost $1
-    // tslint:disable-next-line:no-console
-    console.log(validReturnDates);
-    res.render("search", {data: req.body, outDates: validOutDates, returnDates: validReturnDates });
+    const validOutJourneys = await getJourneysOnDates(validOutDates, req.body.sourceCity, req.body.destinationCity);
+
+    const validReturnJourneys = await getJourneysOnDates(validReturnDates, req.body.sourceCity, req.body.destinationCity);
+
+    res.render("search", {data: req.body, outJourneys: validOutJourneys, returnJourneys: validReturnJourneys });
   });
 
 }

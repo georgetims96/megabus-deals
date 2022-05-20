@@ -22,9 +22,10 @@
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#journeyInformation" style="">
             <div class="accordion-body">
               <ul>
-              <% outDates.forEach(date => { %>
+              <% outJourneys.forEach(journey => { %>
                 <li>  
-                  <%= date %>
+                  <%= journey.departureDateTime  %>
+                  , <%= journey.price %>
                 </li>
               <% }); %> 
               </ul>
@@ -40,9 +41,10 @@
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#journeyInformation" style="">
             <div class="accordion-body">
               <ul> 
-                <% returnDates.forEach(date => { %>
+                <% returnJourneys.forEach(journey => { %>
                 <li>  
-                  <%= date %>
+                  <%= journey.departureDateTime %>
+                  , <%= journey.price %>
                 </li>    
                 <% }); %>
               </ul>

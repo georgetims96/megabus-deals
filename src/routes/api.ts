@@ -1,15 +1,20 @@
 import axios from 'axios';
 
+/*
+
+Ultimately, this will contain API routes. For now they're helpers for the "search" route
+*/
 // Given a route between an origin and destination, returns an array of dates on which there are journeys
 export async function getValidDates(originName: string, destinationName: string, day: string) : Promise<any[]> {
+  // Given cities names as strings, convert to Megabus IDs for API call
   const originId : number = getCityId(originName);
   const destinationId : number = getCityId(destinationName);
-  // tslint:disable-next-line:no-console
-  console.log(`Origin ID: ${originId}, Destination ID: ${destinationId}`);// tslint:disable-next-line:no-console
+
+  // Pull all valid dates from Megabus API
   const response = await axios.get(`https://us.megabus.com/journey-planner/api/journeys/travel-dates?destinationCityId=${destinationId}&originCityId=${originId}`);
+  // Only return dates on passed date
   const dayVal : number = DATE_MAP.get(day);
-  // tslint:disable-next-line:no-console
-  console.log(dayVal);
+
   return response.data.availableDates.filter((date : string) => {
     const formattedDate : Date = new Date(date);
     return formattedDate.getDay() === dayVal;
@@ -29,23 +34,32 @@ function getCityId(cityName: string) : number {
   // If we get here, we haven't found it
   return cityId;
 }
-/*
+
 // Given a route and date, return all journeys
-export async function getJourneyOnDate(date: string, originId: number, destinationId: number) : Promise<object> {
+export async function getJourneyOnDate(date: string, originId: number, destinationId: number) : Promise<any[]> {
   const response = await axios.get(`https://us.megabus.com/journey-planner/api/journeys?days=1&concessionCount=0&departureDate=${date}&destinationId=${destinationId}&inboundDepartureDate=${date}&inboundOtherDisabilityCount=0&inboundPcaCount=0&inboundWheelchairSeated=0&nusCount=0&originId=${originId}&otherDisabilityCount=0&pcaCount=0&totalPassengers=1&wheelchairSeated=0`);
-  return response.data.journey;
+  return response.data.journeys;
 }
 
-export async function getJourneysOnDates(dates: string[], originId: number, destinationId: number) : Promise<any[]> {
+export async function getJourneysOnDates(dates: string[], originName: string, destinationName: string) : Promise<any[]> {
   // FIXME: proper typing
+  // Given cities names as strings, convert to Megabus IDs for API call
+  const originId : number = getCityId(originName);
+  const destinationId : number = getCityId(destinationName);
+
   const journeys: any[] = [];
-  dates.forEach(date => {
-    const curJourney = getJourneyOnDate(date, originId, destinationId);
-    journeys.push(curJourney);
-  });
+
+  for (const date of dates) {
+    let curJourneys = await getJourneyOnDate(date, originId, destinationId);
+    // We only want $1 journeys
+    curJourneys = curJourneys.filter(journey => {
+      return journey.price <= 1.00;
+    });
+    journeys.push(...curJourneys);
+  }
   return journeys;
 }
-*/
+
 
 // FIXME move types to a separate file
 type City = {
