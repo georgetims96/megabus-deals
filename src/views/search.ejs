@@ -11,6 +11,13 @@
         <h1 class="text-primary text-center">Megabus Deals</h1>
       </div>
     </div>
+    <% if (outJourneys.length > 0) { %>
+    <div class="row">
+      <h4 class="text-muted text-center">
+        <%= outJourneys[0].origin.cityName %> - <%= outJourneys[0].destination.cityName %>
+      </h4>
+    </div>
+    <% } %>
     <div class="row">
       <div class="accordion" id="journeyInformation" >
         <div class="accordion-item">
