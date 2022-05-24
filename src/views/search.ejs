@@ -12,6 +12,9 @@
       </div>
     </div>
     <div class="row">
+      <h4 class="text-secondary muted text-center"><%= sourceCity %> - <%= destinationCity %></h4>
+    </div>
+    <div class="row">
       <div class="accordion" id="journeyInformation" >
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
@@ -45,6 +48,13 @@
   </div>
   <%- include('partials/script.ejs') %>
   <script>
+    // Add an event listener we'll use to add relevant journeys to cart
+    document.addEventListener('click', function(e) {
+      if (e.target) {
+        // TODO hook up journey buttons to relevant functionality
+        var clickId = e.target.id;
+      }
+    });
     var xhttp = new XMLHttpRequest();
     xhttp.overrideMimeType("application/json");
     xhttp.open("GET", "deals?sourceCity=<%= sourceCity %>&destinationCity=<%= destinationCity %>&outDateSelection=<%= outDates %>&returnDateSelection=<%= returnDates %>");
@@ -52,7 +62,6 @@
     xhttp.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         var response = this.responseText;
-        alert(response);
         var data = JSON.parse(response).data;
         var outJourneyList = document.getElementById("outJourneyList");
         var returnJourneyList = document.getElementById("returnJourneyList");
