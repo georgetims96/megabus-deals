@@ -12,15 +12,17 @@ export function register(app : Application) : void {
   // Deal page
   app.post("/search", async (req : Request, res : Response) => {
     // First get valid dates
-    const validOutDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.outDateSelection);
-    const validReturnDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.returnDateSelection);
+    // const validOutDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.outDateSelection);
+    // const validReturnDates = await getValidDates(req.body.sourceCity, req.body.destinationCity, req.body.returnDateSelection);
 
     // Then get all matching jouneys that cost $1
-    const validOutJourneys = await getJourneysOnDates(validOutDates, req.body.sourceCity, req.body.destinationCity);
+    // const validOutJourneys = await getJourneysOnDates(validOutDates, req.body.sourceCity, req.body.destinationCity);
 
-    const validReturnJourneys = await getJourneysOnDates(validReturnDates, req.body.sourceCity, req.body.destinationCity);
+    // const validReturnJourneys = await getJourneysOnDates(validReturnDates, req.body.sourceCity, req.body.destinationCity);
 
-    res.render("search", {data: req.body, outJourneys: validOutJourneys, returnJourneys: validReturnJourneys });
+    // res.render("search", {data: req.body, outJourneys: validOutJourneys, returnJourneys: validReturnJourneys, outDates: req.body.outDateSelection, returnDates: req.body.returnDateSelection, sourceCity: req.body.sourceCity, destinationCity: req.body.destinationCity });
+
+    res.render("search", { outDates: req.body.outDateSelection, returnDates: req.body.returnDateSelection, sourceCity: req.body.sourceCity, destinationCity: req.body.destinationCity });
   });
 
 }

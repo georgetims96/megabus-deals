@@ -11,6 +11,13 @@
         <h1 class="text-primary text-center">Megabus Deals</h1>
       </div>
     </div>
+    <% if (outJourneys.length > 0) { %>
+    <div class="row">
+      <h4 class="text-muted text-center">
+        <%= outJourneys[0].origin.cityName %> - <%= outJourneys[0].destination.cityName %>
+      </h4>
+    </div>
+    <% } %>
     <div class="row">
       <div class="accordion" id="journeyInformation" >
         <div class="accordion-item">
@@ -21,7 +28,13 @@
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#journeyInformation" style="">
             <div class="accordion-body">
-              <ul id="outJourneyList">
+              <ul>
+              <% outJourneys.forEach(journey => { %>
+                <li>  
+                  <%= journey.departureDateTime  %>
+                  , <%= journey.price %>
+                </li>
+              <% }); %> 
               </ul>
             </div>
           </div>
@@ -34,8 +47,13 @@
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#journeyInformation" style="">
             <div class="accordion-body">
-              <ul id="returnJourneyList"> 
-                
+              <ul> 
+                <% returnJourneys.forEach(journey => { %>
+                <li>  
+                  <%= journey.departureDateTime %>
+                  , <%= journey.price %>
+                </li>    
+                <% }); %>
               </ul>
             </div>
           </div>
@@ -46,31 +64,12 @@
   <%- include('partials/script.ejs') %>
   <script>
     var xhttp = new XMLHttpRequest();
-    xhttp.overrideMimeType("application/json");
     xhttp.open("GET", "deals?sourceCity=<%= sourceCity %>&destinationCity=<%= destinationCity %>&outDateSelection=<%= outDates %>&returnDateSelection=<%= returnDates %>");
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         var response = this.responseText;
         alert(response);
-        var data = JSON.parse(response).data;
-        var outJourneyList = document.getElementById("outJourneyList");
-        var returnJourneyList = document.getElementById("returnJourneyList");
-
-        for (var outJourney of data.outJourneys) {
-          var curJourney = document.createElement("li");
-          curJourney.setAttribute("id", outJourney.departureDateTime);
-          curJourney.appendChild(document.createTextNode(outJourney.departureDateTime));
-          outJourneyList.appendChild(curJourney);
-        }
-        
-        for (var returnJourney of data.returnJourneys) {
-          var curJourney = document.createElement("li");
-          curJourney.setAttribute("id", returnJourney.departureDateTime);
-          curJourney.appendChild(document.createTextNode(returnJourney.departureDateTime));
-          returnJourneyList.appendChild(curJourney);
-
-        }
       }
     }
     xhttp.send();

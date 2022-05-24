@@ -3,6 +3,7 @@ import path from "path";
 import dotenv from "dotenv";
 
 import * as routes from "./routes";
+import * as api from "./routes/api_backup";
 
 // Set up configuration
 dotenv.config()
@@ -19,6 +20,7 @@ app.use(express.urlencoded());
 
 // Set up routes
 routes.register(app);
+api.register(app);
 
 // Run server
 app.listen(port, () => {
