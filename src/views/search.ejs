@@ -53,6 +53,7 @@
       if (e.target) {
         // TODO hook up journey buttons to relevant functionality
         var clickId = e.target.id;
+        alert(clickId);
       }
     });
     var xhttp = new XMLHttpRequest();
@@ -63,23 +64,88 @@
       if (this.readyState === 4 && this.status === 200) {
         var response = this.responseText;
         var data = JSON.parse(response).data;
-        var outJourneyList = document.getElementById("outJourneyList");
-        var returnJourneyList = document.getElementById("returnJourneyList");
+        var outJourneys = data.outJourneys;
+        var returnJourneys = data.returnJourneys;
+        
+        function getDayDifference(date1, date2) {
+          let date1Proc = new Date(date1);
+          let date2Proc = new Date(date2);
+          let difference = date2Proc.getTime() - date1Proc.getTime();
+          let daysDifference = Math.ceil(difference / (1000 * 3600 * 24));
+          return daysDifference;
+        }
 
-        for (var outJourney of data.outJourneys) {
-          var curJourney = document.createElement("li");
-          curJourney.setAttribute("id", outJourney.departureDateTime);
-          curJourney.appendChild(document.createTextNode(outJourney.departureDateTime));
-          outJourneyList.appendChild(curJourney);
+        let filteredOut = [];
+        let filteredReturn = [];
+        for (let journey of outJourneys) {
+          for (let returnJourney of returnJourneys) {
+            let dayDiff = getDayDifference(journey.departureDateTime, returnJourney.departureDateTime);
+            if (dayDiff < 7 && dayDiff > 0) {
+              // FIXME remove
+              console.log(`Out: ${journey}, Return ${r_journey}`);
+              filteredOut.push(journey);
+              filteredReturn.push(returnJourney);
+            }
+          }
+        }
+
+
+        let outJourneyList = document.getElementById("outJourneyList");
+        let returnJourneyList = document.getElementById("returnJourneyList");
+
+
+        for (let journey of filteredOut) {
+          let curDate = new Date(journey.departureDateTime);
+          let curDayStr = `${curDate.getDate()}/${curDate.getMonth()}/${curDate.getFullYear()}`;
+          let timeStamp = `${curDate.getHours()}:${curDate.getMinutes()}`;
+          let relLi = document.getElementById(`out&${curDayStr}`);
+          if (relLi === null) {
+            let journeyLi = document.createElement("li");
+            journeyLi.setAttribute("id", `out&${curDayStr}`);
+            let curSpan = document.createElement("span");
+            curSpan.setAttribute("id", `out&${curDayStr}=${journey.journeyId}`);
+            curSpan.appendChild(document.createTextNode(`${curDayStr}:${timeStamp}`);
+            outJourneyList.appendChild(journeyLi);
+            journeyLi.appendChild(curSpan);
+        
+          } else {
+            let relSpan = document.getElementById(`out&${curDayStr}=${journey.journeyId}`);
+            if (relSpan === null) {
+              let curSpan = document.createElement("span");
+              curSpan.setAttribute("id", `out&${curDayStr}=${journey.journeyId}`);
+              curSpan.appendChild(document.createTextNode(`, ${timeStamp}`);
+              relLi.appendChild(curSpan);
+            }
+          }
+
+        }
+
+        for (let journey of filteredReturn) {
+          let curDate = new Date(journey.departureDateTime);
+          let curDayStr = `${curDate.getDate()}/${curDate.getMonth()}/${curDate.getFullYear()}`;
+          let timeStamp = `${curDate.getHours()}:${curDate.getMinutes()}`;
+          let relLi = document.getElementById(`return&${curDayStr}`);
+          if (relLi === null) {
+            let journeyLi = document.createElement("li");
+            journeyLi.setAttribute("id", `return&${curDayStr}`);
+            let curSpan = document.createElement("span");
+            curSpan.setAttribute("id", `return&${curDayStr}=${journey.journeyId}`);
+            curSpan.appendChild(document.createTextNode(`${curDayStr}:${timeStamp}`);
+            returnJourneyList.appendChild(journeyLi);
+            journeyLi.appendChild(curSpan);
+        
+          } else {
+            let relSpan = document.getElementById(`return&${curDayStr}=${journey.journeyId}`);
+            if (relSpan === null) {
+              let curSpan = document.createElement("span");
+              curSpan.setAttribute("id", `return&${curDayStr}=${journey.journeyId}`);
+              curSpan.appendChild(document.createTextNode(`, ${timeStamp}`);
+              relLi.appendChild(curSpan);
+            }
+          }
+
         }
         
-        for (var returnJourney of data.returnJourneys) {
-          var curJourney = document.createElement("li");
-          curJourney.setAttribute("id", returnJourney.departureDateTime);
-          curJourney.appendChild(document.createTextNode(returnJourney.departureDateTime));
-          returnJourneyList.appendChild(curJourney);
-
-        }
       }
     }
     xhttp.send();
