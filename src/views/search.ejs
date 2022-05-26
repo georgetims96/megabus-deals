@@ -82,7 +82,7 @@
             let dayDiff = getDayDifference(journey.departureDateTime, returnJourney.departureDateTime);
             if (dayDiff < 7 && dayDiff > 0) {
               // FIXME remove
-              console.log(`Out: ${journey}, Return ${r_journey}`);
+              console.log(`Out: ${journey}, Return ${returnJourney}`);
               filteredOut.push(journey);
               filteredReturn.push(returnJourney);
             }
@@ -104,7 +104,7 @@
             journeyLi.setAttribute("id", `out&${curDayStr}`);
             let curSpan = document.createElement("span");
             curSpan.setAttribute("id", `out&${curDayStr}=${journey.journeyId}`);
-            curSpan.appendChild(document.createTextNode(`${curDayStr}:${timeStamp}`);
+            curSpan.appendChild(document.createTextNode(`${curDayStr}:${timeStamp}`));
             outJourneyList.appendChild(journeyLi);
             journeyLi.appendChild(curSpan);
         
@@ -113,7 +113,7 @@
             if (relSpan === null) {
               let curSpan = document.createElement("span");
               curSpan.setAttribute("id", `out&${curDayStr}=${journey.journeyId}`);
-              curSpan.appendChild(document.createTextNode(`, ${timeStamp}`);
+              curSpan.appendChild(document.createTextNode(`, ${timeStamp}`));
               relLi.appendChild(curSpan);
             }
           }
@@ -130,7 +130,7 @@
             journeyLi.setAttribute("id", `return&${curDayStr}`);
             let curSpan = document.createElement("span");
             curSpan.setAttribute("id", `return&${curDayStr}=${journey.journeyId}`);
-            curSpan.appendChild(document.createTextNode(`${curDayStr}:${timeStamp}`);
+            curSpan.appendChild(document.createTextNode(`${curDayStr}:${timeStamp}`));
             returnJourneyList.appendChild(journeyLi);
             journeyLi.appendChild(curSpan);
         
@@ -139,7 +139,7 @@
             if (relSpan === null) {
               let curSpan = document.createElement("span");
               curSpan.setAttribute("id", `return&${curDayStr}=${journey.journeyId}`);
-              curSpan.appendChild(document.createTextNode(`, ${timeStamp}`);
+              curSpan.appendChild(document.createTextNode(`, ${timeStamp}`));
               relLi.appendChild(curSpan);
             }
           }
