@@ -53,7 +53,10 @@
       if (e.target) {
         // TODO hook up journey buttons to relevant functionality
         var clickId = e.target.id;
-        alert(clickId);
+        let relArgs = clickId.split("=");
+        if (relArgs.length > 1) {
+          alert(clickId[1]);
+        }
       }
     });
     var xhttp = new XMLHttpRequest();
@@ -104,7 +107,7 @@
             journeyLi.setAttribute("id", `out&${curDayStr}`);
             let curSpan = document.createElement("span");
             curSpan.setAttribute("id", `out&${curDayStr}=${journey.journeyId}`);
-            curSpan.appendChild(document.createTextNode(`${curDayStr}:${timeStamp}`));
+            curSpan.appendChild(document.createTextNode(`${curDayStr}: ${timeStamp}`));
             outJourneyList.appendChild(journeyLi);
             journeyLi.appendChild(curSpan);
         
@@ -130,7 +133,7 @@
             journeyLi.setAttribute("id", `return&${curDayStr}`);
             let curSpan = document.createElement("span");
             curSpan.setAttribute("id", `return&${curDayStr}=${journey.journeyId}`);
-            curSpan.appendChild(document.createTextNode(`${curDayStr}:${timeStamp}`));
+            curSpan.appendChild(document.createTextNode(`${curDayStr}: ${timeStamp}`));
             returnJourneyList.appendChild(journeyLi);
             journeyLi.appendChild(curSpan);
         
