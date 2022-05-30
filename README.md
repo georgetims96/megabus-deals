@@ -6,3 +6,4 @@
 (3) Filter out non-valid journeys (i.e those journeys that are more than a week after the selected out date)
 (4) Filter only valid destination cities for a given source city
 (5) Implement a caching system
+(6) Add hidden "Evil" method
