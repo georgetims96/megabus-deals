@@ -19,7 +19,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded());
 
 // Set up static folder
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up routes
 routes.register(app);
