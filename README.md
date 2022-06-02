@@ -9,6 +9,5 @@
 (6) Add hidden "Evil" method
 
 # Known Issues
-- Date not taking into account zero-indexing on deals page
-- 31 June is being given as a valid date
 - Some non-$1-dollar deals are appearing
+- Duplicate deals appear (i.e. New York to Philadelphia/return journey(?))

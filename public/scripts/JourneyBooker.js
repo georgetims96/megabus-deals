@@ -378,7 +378,7 @@ JourneyBooker.prototype.getDateStrings = function(dateToProcess) {
   const day = rawDay >= 10 ? rawDay : "0" + rawDay;
 
   // Format month correctly
-  const rawMonth = dateObj.getMonth();
+  const rawMonth = dateObj.getMonth() + 1;
   // Pad month with leading zero if necessary
   const month = rawMonth >= 10 ? rawMonth : "0" + rawMonth;
 
@@ -418,7 +418,7 @@ JourneyBooker.prototype.getDateStrings = function(dateToProcess) {
   const day = rawDay >= 10 ? rawDay : "0" + rawDay;
 
   // Format month correctly
-  const rawMonth = dateObj.getMonth();
+  const rawMonth = dateObj.getMonth() + 1;
   // Pad month with leading zero if necessary
   const month = rawMonth >= 10 ? rawMonth : "0" + rawMonth;
 
