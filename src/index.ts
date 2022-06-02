@@ -18,6 +18,9 @@ app.set("view engine", "ejs");
 // Set up post request
 app.use(express.urlencoded());
 
+// Set up static folder
+app.use(express.static('public'));
+
 // Set up routes
 routes.register(app);
 api.register(app);

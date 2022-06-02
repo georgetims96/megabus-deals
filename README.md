@@ -7,3 +7,8 @@
 (4) Filter only valid destination cities for a given source city
 (5) Implement a caching system
 (6) Add hidden "Evil" method
+
+# Known Issues
+- Date not taking into account zero-indexing on deals page
+- 31 June is being given as a valid date
+- Some non-$1-dollar deals are appearing
