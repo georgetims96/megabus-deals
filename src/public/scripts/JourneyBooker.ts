@@ -1,10 +1,10 @@
 
-    /*
-    DATA
-    - Out Journeys
-    - Return Journeys
-    - UI elements to update
-    */
+/*
+DATA
+- Out Journeys
+- Return Journeys
+- UI elements to update
+*/
 
 // FIXME clarify config type
 function JourneyBooker(config : any) {
@@ -12,7 +12,7 @@ function JourneyBooker(config : any) {
   this.selectedOutJourneyID = null;
   this.selectedReturnJourneyID = null;
 
-    // Contains original, unfiltered data returned by API call
+  // Contains original, unfiltered data returned by API call
   this.originalOutJourneys = config.outJourneys;
   this.originalReturnJourneys = config.returnJourneys;
   // Will be updated whenever we call filter function
