@@ -11,6 +11,7 @@
 # Known Issues
 - Some non-$1-dollar deals are appearing
 - Duplicate deals appear (i.e. New York to Philadelphia/return journey(?))
+- ~~Date is in UK format~~
 
 # What I've Learned
 - TBD

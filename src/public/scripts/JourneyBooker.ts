@@ -400,7 +400,7 @@ JourneyBooker.prototype.getDateStrings = (dateToProcess : string) => {
   const minutes = rawMinutes;
 
   // Construct date string
-  const dateStr = `${day}-${month}-${year}`;
+  const dateStr = `${month}-${day}-${year}`;
   // Construct time string
   const timeStampStr = `${hour}:${minutes}`;
 
