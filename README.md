@@ -9,6 +9,8 @@
 6. Add hidden "Evil" method
 7. Add option to expand search if there are no $1 dollar deals
 8. Move caching system into middleware file
+9. Cache out and return journeys separately, which will result in fewer API calls
+10. In addition to caching in memory, save results to database for data analytics (i.e. predicting ticket prices based on source, destination, days to trip, day of week etc.) 
 
 # Known Issues
 - Some non-$1-dollar deals are appearing
@@ -18,4 +20,5 @@
 
 # What I've Learned
 - This is my first TypeScript-only project. I learned how to set up tsconfig and tslint files to my desired specification. I also learned how to use Express in TypeScript.
-
+- I learned how to implement a basic caching system to reduce external API calls
+- I learned how to write my own middleware (i.e. implementing the caching system)
