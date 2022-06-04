@@ -7,11 +7,14 @@
 4. Filter only valid destination cities for a given source city
 5. Implement a caching system
 6. Add hidden "Evil" method
+7. Add option to expand search if there are no $1 dollar deals
 
 # Known Issues
 - Some non-$1-dollar deals are appearing
 - Duplicate deals appear (i.e. New York to Philadelphia/return journey(?))
 - ~~Date is in UK format~~
+- Don't have a "No Results Found" view
 
 # What I've Learned
-- TBD
+- This is my first TypeScript-only project. I learned how to set up tsconfig and tslint files to my desired specification. I also learned how to use Express in TypeScript.
+
