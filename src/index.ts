@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import * as routes from "./routes";
 import * as api from "./routes/api_backup";
+import * as cache from "./middleware/caching";
 
 // Set up configuration
 dotenv.config()
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up routes
 routes.register(app);
+// Set up API endpoint
 api.register(app);
 
 // Run server
