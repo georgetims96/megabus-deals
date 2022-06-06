@@ -2,7 +2,6 @@ import axios from 'axios';
 import express, { Application, Request, Response} from "express";
 import { getValidDates, ORIGIN_CITIES, getJourneysOnDates} from "./api";
 import { UseCache } from "../middleware/caching";
-import NodeCache from "node-cache";
 
 export function register(app: Application) {
   // Set up cache for deals endpoint
