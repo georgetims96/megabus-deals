@@ -8,7 +8,7 @@
 5. ~~Implement a caching system~~
 6. Add hidden "Evil" method
 7. Add option to expand search if there are no $1 dollar deals
-8. Move caching system into middleware file
+8. ~~Move caching system into middleware file~~
 9. Cache out and return journeys separately, which will result in fewer API calls
 10. In addition to caching in memory, save results to database for data analytics (i.e. predicting ticket prices based on source, destination, days to trip, day of week etc.) 
 

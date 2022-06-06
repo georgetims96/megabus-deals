@@ -5,24 +5,11 @@ import { UseCache } from "../middleware/caching";
 import NodeCache from "node-cache";
 
 export function register(app: Application) {
+  // Set up cache for deals endpoint
+  const dealCache = UseCache();
 
-  const cache = new NodeCache ( { stdTTL : 60 * 60 * 24} );
-  // FIXME need to figure how to put this in separate middleware file
-  function verifyCache( req : Request, res : Response, next : any) {
-    const sourceCity : any = req.query.sourceCity;
-    const destinationCity : any = req.query.destinationCity;
-    const outDay : any = req.query.outDateSelection;
-    const returnDay : any = req.query.returnDateSelection;
 
-    const uid = `${sourceCity}-${destinationCity}&${outDay}-${returnDay}`;
-
-    if (cache.has(uid)) {
-      return res.status(200).json(cache.get(uid));
-    }
-    return next();
-  }
-
-  app.get("/deals", verifyCache, async (req: Request, res : Response) => {
+  app.get("/deals", dealCache.cacheMiddleware, async (req: Request, res : Response) => {
     // TODO fix any typing
     const sourceCity : any = req.query.sourceCity;
     const destinationCity : any = req.query.destinationCity;
@@ -49,7 +36,8 @@ export function register(app: Application) {
       }
     };
 
-    cache.set(uid, dataToReturn);
+    // Make sure to cache response to avoid expensive duplicate API calls
+    dealCache.setCache(uid, dataToReturn);
 
 
     res.json(dataToReturn);
