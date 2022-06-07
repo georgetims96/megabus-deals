@@ -3,7 +3,7 @@ import path from "path";
 import dotenv from "dotenv";
 
 import * as routes from "./routes";
-import * as api from "./routes/api_backup";
+import * as api from "./routes/api";
 import * as cache from "./middleware/caching";
 
 // Set up configuration
