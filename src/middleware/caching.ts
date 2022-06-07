@@ -2,32 +2,7 @@ import { Client } from "memjs";
 import NodeCache from "node-cache";
 import { Application, Request, Response } from "express";
 
-export function UseCache() : any {
-
-  const cache = new NodeCache ( { stdTTL : 60 * 60 * 24} );
-  return {
-    cacheMiddleware:  ( req : Request, res : Response, next : any) => {
-      const sourceCity : any = req.query.sourceCity;
-      const destinationCity : any = req.query.destinationCity;
-      const outDay : any = req.query.outDateSelection;
-      const returnDay : any = req.query.returnDateSelection;
-
-      const uid = `${sourceCity}-${destinationCity}&${outDay}-${returnDay}`;
-
-      if ( cache.has(uid) ) {
-        return res.status(200).json(cache.get(uid));
-      }
-      return next();
-    },
-    setCache: (id: string, data: JSON) => {
-      cache.set(id, data);
-    }
- };
-
-}
-/*
-// FIXME will ultimately replace above
-export const register(app : Application, cacheStoreTime : number) => {
+export function register(app : Application, cacheStoreTime : number)  {
   // Initialize cache with passed length
   const cache = new NodeCache( { stdTTL : cacheStoreTime });
   // Create cache object that we'll interact with
@@ -53,4 +28,4 @@ export const register(app : Application, cacheStoreTime : number) => {
   // Add cache to app.locals
   app.locals.mainCache = cacheObj;
 };
-*/
+

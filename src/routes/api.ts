@@ -1,12 +1,10 @@
 import axios from 'axios';
 import express, { Application, Request, Response} from "express";
 import { getValidDates, ORIGIN_CITIES, getJourneysOnDates} from "./api_helpers";
-import { UseCache } from "../middleware/caching";
 
 export function register(app: Application) {
   // Set up cache for deals endpoint
-  const dealCache = UseCache();
-
+  const dealCache = app.locals.mainCache;
 
   app.get("/deals", dealCache.cacheMiddleware, async (req: Request, res : Response) => {
     // TODO fix any typing

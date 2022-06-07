@@ -22,6 +22,10 @@ app.use(express.urlencoded());
 // Set up static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Set up cache middleware
+// N.B. cache must come first because API refers to it
+cache.register(app, 60 * 60 * 24);
+
 // Set up routes
 routes.register(app);
 // Set up API endpoint
