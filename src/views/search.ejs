@@ -17,6 +17,9 @@
     <div class="row" id="loadingSign">
       <div class="text-center" id="loadingType">Finding deals</div>
     </div>
+    <div class="row d-none" id="noResultsMessage">
+      <div class="text-center">No $1 journeys found &#128528;</div>
+    </div>
     <div class="row d-none" id="dealResults">
       <div class="accordion" id="journeyInformation" >
         <div class="accordion-item">
@@ -81,14 +84,24 @@
           selectedOutJourneyTextID: "selectedOutJourney",
           selectedReturnJourneyTextID: "selectedReturnJourney",
           purchaseButtonID: "purchaseButton"
-         });
-        
+        });
+
         var loadingItem = document.getElementById("loadingSign");
-        var dealResults = document.getElementById("dealResults");
-        clearInterval(loadingAnimation);
+
+        // Get rid of loading message
         loadingItem.classList.add("d-none");
-        dealResults.classList.remove("d-none");
-        
+
+        // Check if no journeys are found
+        if (mainJB.isEmpty()) {
+          // If so, let user know
+          document.getElementById("noResultsMessage").classList.remove("d-none");
+        } else {
+          // If journeys are found, show to user
+          var dealResults = document.getElementById("dealResults");
+          clearInterval(loadingAnimation);
+          dealResults.classList.remove("d-none");
+        }
+                                  
       }
     }
     xhttp.send();

@@ -60,10 +60,21 @@ function JourneyBooker(config : any) {
   // Filter out relevant journeys
   this.filterOnlyWithinWeek();
 
+  // Indicates if no search results
+  this.empty = false;
+
+  if (this.filteredOutJourneys.length === 0) {
+    // If there are no qualifying journeys, let user know
+    this.empty = true;
+  } else {
   // Populate journey lists
-  this.populateJourneyLists();
+    this.populateJourneyLists();
+  }
 }
 
+JourneyBooker.prototype.isEmpty = function() : boolean {
+  return this.empty;
+}
 /**
  * Create a span element representing the passed journeyId
  */
