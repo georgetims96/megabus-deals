@@ -25,7 +25,7 @@
           <label>Destination</label>
           <select class="form-control" name="destinationCity" id="destinationCity">
             <% cities.forEach((city, idx) => { %>
-              <option <% if (idx + 1 === cities.length) {%> selected="selected" <% } %>><%= city.name %></option>
+              <option<% if (idx + 1 === cities.length) {%> selected="selected" <% } %>><%= city.name %></option>
             <% }); %>
           </select>
         </div>

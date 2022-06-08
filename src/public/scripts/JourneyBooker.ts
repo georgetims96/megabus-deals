@@ -59,10 +59,10 @@ function JourneyBooker(config : any) {
 
   // Filter out relevant journeys
   this.filterOnlyWithinWeek();
-
+  
   // Indicates if no search results
   this.empty = false;
-
+  
   if (this.filteredOutJourneys.length === 0) {
     // If there are no qualifying journeys, let user know
     this.empty = true;
