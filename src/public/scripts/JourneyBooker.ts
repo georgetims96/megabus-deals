@@ -498,13 +498,19 @@ JourneyBooker.prototype.filterOnlyWithinWeek = function() {
 
 JourneyBooker.prototype.filterReturnJourneys = function(outJourneyId : string) {
   const filteredReturn = [];
+
+  // To make sure we don't add duplicates
+  const seenReturn = new Set();
   // Use getter here
   const selectedJourney = this.getJourney(outJourneyId);
   for (const returnJourney of this.originalReturnJourneys) {
     // FIXME optimize journey getter
     const dayDiff = this.getDayDifference(selectedJourney.departureDateTime, returnJourney.departureDateTime);
     if (dayDiff < 7 && dayDiff > 0) {
-      filteredReturn.push(returnJourney);
+      if (!seenReturn.has(returnJourney.journeyId)) {
+        filteredReturn.push(returnJourney);
+        seenReturn.add(returnJourney.journeyId);
+      }
     }
   }
   this.filteredReturnJourneys = filteredReturn;
