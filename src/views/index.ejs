@@ -16,9 +16,6 @@
         <div class="form-group">
           <label>Source</label>
           <select class="form-control" name="sourceCity" id="sourceCity">
-            <% cities.forEach(city => { %>
-            <option><%= city.name %></option>
-            <% }); %>
           </select>
         </div>
         <div class="form-group">
@@ -59,5 +56,44 @@
       </form>
   </div>
   <%- include('partials/script.ejs') %>
+  <script>
+  function updateDestinationCities() {
+    var originName = document.getElementById("sourceCity").value;
+ 
+    var destination_cities_options = document.getElementById("destinationCity");
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState === 4 & this.status === 200) {
+        var valid_destinations = JSON.parse(this.responseText);
+        destination_cities_options.innerHTML = "";
+        valid_destinations.cities.forEach(city => {
+          var destinationOption = document.createElement("option");
+          destinationOption.appendChild(document.createTextNode(city.name));
+          destination_cities_options.appendChild(destinationOption);
+        });
+      }
+    }
+    xhttp.open("GET", `valid_destinations?cityName=${originName}`, true);
+    xhttp.send();
+  }
+
+  var source_cities_options = document.getElementById("sourceCity");
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState === 4 & this.status === 200) {
+      var origin_cities_data = JSON.parse(this.responseText);
+      origin_cities_data.cities.forEach(city => {
+        var cityOption = document.createElement("option");
+        cityOption.value = city.name;
+        cityOption.appendChild(document.createTextNode(city.name));
+        source_cities_options.appendChild(cityOption);
+      });
+    }
+  }
+  xhttp.open("GET", "origin_cities", true);
+  xhttp.send();
+
+  document.getElementById("sourceCity").addEventListener("change", updateDestinationCities); 
+  </script>
 </body>
 </html>

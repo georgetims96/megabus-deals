@@ -4,7 +4,7 @@
 1. ~~Convert purely template loading to template loading + AJAX request~~
 2. ~~Customize accordion to only have one open at a time and automatically open return once an out-journey has been selected~~
 3. ~~Filter out non-valid journeys (i.e those journeys that are more than a week after the selected out date)~~
-4. Create a "validCities" endpoint that filters out invalid destination cities for a given source city
+4. ~~Create a "validCities" endpoint that filters out invalid destination cities for a given source city~~
 5. ~~Implement a caching system~~
 6. Add hidden "Evil" method
 7. Add option to expand search if there are no $1 dollar deals

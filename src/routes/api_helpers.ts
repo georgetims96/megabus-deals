@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+
+
+export async function getValidDestinations(originName: string) {
+  const originId : number = getCityId(originName);
+  const response = await axios.get(`https://us.megabus.com/journey-planner/api/destination-cities?originCityId=${originId}`);
+  return response.data;
+}
 /*
 
 Ultimately, this will contain API routes. For now they're helpers for the "search" route

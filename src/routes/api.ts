@@ -1,6 +1,6 @@
 import axios from 'axios';
 import express, { Application, Request, Response} from "express";
-import { getValidDates, ORIGIN_CITIES, getJourneysOnDates} from "./api_helpers";
+import { getValidDestinations, getValidDates, ORIGIN_CITIES, getJourneysOnDates} from "./api_helpers";
 
 export function register(app: Application) {
   // Set up cache for deals endpoint
@@ -39,5 +39,14 @@ export function register(app: Application) {
 
     res.json(dataToReturn);
 
+  });
+
+  app.get("/origin_cities", async (req: Request, res: Response) => {
+    res.json(ORIGIN_CITIES);
+  });
+
+  app.get("/valid_destinations", async (req: Request, res: Response) => {
+    const originCity : any = req.query.cityName;
+    res.json(await getValidDestinations(originCity));
   });
 }
