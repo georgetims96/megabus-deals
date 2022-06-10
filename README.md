@@ -14,7 +14,7 @@
 
 # Known Issues
 - Some non-$1-dollar deals are appearing
-- Duplicate deals appear (i.e. New York to Philadelphia/return journey(?))
+- ~~Duplicate deals appear (i.e. New York to Philadelphia/return journey(?))~~ **This is a Megabus quirk, not a bug**
 - ~~Date is in UK format~~
 - ~~Don't have a "No Results Found" view~~
 - Destination selector messes up if clicked immediately after selecting origin
