@@ -1,5 +1,4 @@
-import axios from 'axios';
-import express, { Application, Request, Response} from "express";
+import { Application, Request, Response} from "express";
 import { getValidDestinations, getValidDates, ORIGIN_CITIES, getJourneysOnDates} from "./api_helpers";
 
 export function register(app: Application) {
@@ -15,6 +14,8 @@ export function register(app: Application) {
     // Generate UID for caching purposes
     // FIXME could probably just use req.params
     const uid = `${sourceCity}-${destinationCity}&${outDay}-${returnDay}`;
+
+    const id = dealCache.stringit(req.query);
 
     const validOutDates = await getValidDates(sourceCity, destinationCity, outDay);
     const validReturnDates = await getValidDates(destinationCity, sourceCity, returnDay);
@@ -34,7 +35,7 @@ export function register(app: Application) {
     };
 
     // Make sure to cache response to avoid expensive duplicate API calls
-    dealCache.setCache(uid, dataToReturn);
+    dealCache.setCache(id, dataToReturn);
 
 
     res.json(dataToReturn);
@@ -45,8 +46,13 @@ export function register(app: Application) {
     res.json(ORIGIN_CITIES);
   });
 
-  app.get("/valid_destinations", async (req: Request, res: Response) => {
-    const originCity : any = req.query.cityName;
-    res.json(await getValidDestinations(originCity));
+  app.get("/valid_destinations", dealCache.cacheMiddleware, async (req: Request, res: Response) => {
+    const id  = dealCache.stringit(req.query);
+    const originCity: any = req.query.cityName;
+
+    const dataToReturn = await getValidDestinations(originCity);
+
+    dealCache.setCache(id, dataToReturn);
+    res.json(dataToReturn);
   });
 }

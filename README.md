@@ -12,7 +12,7 @@
 9. Cache out and return journeys separately, which will result in fewer API calls
 10. In addition to caching in memory, save results to database for data analytics (i.e. predicting ticket prices based on source, destination, days to trip, day of week etc.) 
 11. Add option to expand search to cheapest, non-$1 dollar tickets. This will require moving a lot of logic to the front-end
-12. Expand caching to include origin and valid destination cities API calls
+12. ~~Expand caching to include origin and valid destination cities API calls~~
 
 # Known Issues
 - Some non-$1-dollar deals are appearing

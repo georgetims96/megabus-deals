@@ -1,4 +1,3 @@
-import { Client } from "memjs";
 import NodeCache from "node-cache";
 import { Application, Request, Response } from "express";
 
@@ -8,22 +7,34 @@ export function register(app : Application, cacheStoreTime : number)  {
   // Create cache object that we'll interact with
   const cacheObj = {
     cacheMiddleware:  ( req : Request, res : Response, next : any) => {
-      const sourceCity : any = req.query.sourceCity;
-      const destinationCity : any = req.query.destinationCity;
-      const outDay : any = req.query.outDateSelection;
-      const returnDay : any = req.query.returnDateSelection;
+      const sourceCity = req.query.sourceCity;
+      const destinationCity = req.query.destinationCity;
+      const outDay = req.query.outDateSelection;
+      const returnDay = req.query.returnDateSelection;
 
       const uid = `${sourceCity}-${destinationCity}&${outDay}-${returnDay}`;
-
-      if (cache.has(uid)) {
-        return res.status(200).json(cache.get(uid));
+      const id = cacheObj.stringit(req.query);
+      // FIXME return to uid if this doesn't work
+      if (cache.has(id)) {
+        return res.status(200).json(cache.get(id));
       }
       return next();
     },
-    setCache: (id: string, data: JSON) => {
+    setCache: (id: any, data: JSON) => {
       cache.set(id, data);
+    },
+    stringit: (queryObj: any) => {
+      let runningString = "";
+      for (const key in queryObj) {
+        if (queryObj.hasOwnProperty(key)) {
+          runningString += key;
+          runningString += "=";
+          runningString += queryObj[key];
+          runningString += "&";
+        }
+      }
+      return runningString;
     }
-
   };
   // Add cache to app.locals
   app.locals.mainCache = cacheObj;
