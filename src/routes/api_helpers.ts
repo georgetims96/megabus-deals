@@ -48,7 +48,7 @@ export async function getJourneyOnDate(date: string, originId: number, destinati
   return response.data.journeys;
 }
 
-export async function getJourneysOnDates(dates: string[], originName: string, destinationName: string) : Promise<any[]> {
+export async function getJourneysOnDates(dates: string[], originName: string, destinationName: string, belowPrice: number = 1.00) : Promise<any[]> {
   // FIXME: proper typing
   // Given cities names as strings, convert to Megabus IDs for API call
   const originId : number = getCityId(originName);
@@ -58,9 +58,9 @@ export async function getJourneysOnDates(dates: string[], originName: string, de
 
   for (const date of dates) {
     let curJourneys = await getJourneyOnDate(date, originId, destinationId);
-    // We only want $1 journeys
+    // We only want journeys below desired upper price (default = $1.00)
     curJourneys = curJourneys.filter(journey => {
-      return journey.price <= 1.00;
+      return journey.price <= belowPrice;
     });
     journeys.push(...curJourneys);
   }

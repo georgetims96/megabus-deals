@@ -34,6 +34,12 @@ export function register(app: Application) {
       }
     };
 
+    // TODO Move into middleware
+    if (!dataToReturn.error) {
+       // tslint:disable-next-line:no-console
+       console.log(dataToReturn.data);
+    }
+
     // Make sure to cache response to avoid expensive duplicate API calls
     dealCache.setCache(id, dataToReturn);
 

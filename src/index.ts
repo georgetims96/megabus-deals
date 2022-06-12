@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import * as routes from "./routes";
 import * as api from "./routes/api";
 import * as cache from "./middleware/caching";
+import * as dataAnalytics from"./middleware/data_analytics";
 
 // Set up configuration
 dotenv.config()
@@ -25,6 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set up cache middleware
 // N.B. cache must come first because API refers to it
 cache.register(app, 60 * 60 * 24);
+
+// Set up data analytics middleware
+dataAnalytics.register(app);
 
 // Set up routes
 routes.register(app);
