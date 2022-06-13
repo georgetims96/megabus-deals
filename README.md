@@ -14,6 +14,8 @@
 11. Add option to expand search to cheapest, non-$1 dollar tickets. This will require moving a lot of logic to the front-end
 12. ~~Expand caching to include origin and valid destination cities API calls~~
 13. Upgrade caching to Redis
+14. Make checkout direct. Currently users are redirected to the Megabus site.
+15. (Contingent on 14) Let users add multiple round-trips to their basket
 
 # Known Issues
 - Some non-$1-dollar deals are appearing
