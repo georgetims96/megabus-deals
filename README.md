@@ -6,7 +6,7 @@
 3. ~~Filter out non-valid journeys (i.e those journeys that are more than a week after the selected out date)~~
 4. ~~Create a "validCities" endpoint that filters out invalid destination cities for a given source city~~
 5. ~~Implement a caching system~~
-6. Add hidden "Evil" method
+6. Add hidden "Evil" method (further elaboration would be incriminating)
 7. Add option to expand search if there are no $1 dollar deals
 8. ~~Move caching system into middleware file~~
 9. Cache out and return journeys separately, which will result in fewer API calls
@@ -16,6 +16,8 @@
 13. Upgrade caching to Redis
 14. Make checkout direct. Currently users are redirected to the Megabus site.
 15. (Contingent on 14) Let users add multiple round-trips to their basket
+16. Configure SSL certificate
+17. Set up Docker container
 
 # Known Issues
 - Some non-$1-dollar deals are appearing
