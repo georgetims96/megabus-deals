@@ -17,7 +17,7 @@
 14. Make checkout direct. Currently users are redirected to the Megabus site.
 15. (Contingent on 14) Let users add multiple round-trips to their basket
 16. Configure SSL certificate
-17. Set up Docker container
+17. ~~Set up Docker container~~
 
 # Known Issues
 - Some non-$1-dollar deals are appearing
