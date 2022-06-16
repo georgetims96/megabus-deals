@@ -11,12 +11,8 @@ export function register(app: Application) {
     const destinationCity : any = req.query.destinationCity;
     const outDay : any = req.query.outDateSelection;
     const returnDay : any = req.query.returnDateSelection;
+
     // Generate UID for caching purposes
-    // FIXME could probably just use req.params
-    const uid = `${sourceCity}-${destinationCity}&${outDay}-${returnDay}`;
-
-    const id = dealCache.stringit(req.query);
-
     const validOutDates = await getValidDates(sourceCity, destinationCity, outDay);
     const validReturnDates = await getValidDates(destinationCity, sourceCity, returnDay);
 
@@ -43,22 +39,29 @@ export function register(app: Application) {
     // Make sure to cache response to avoid expensive duplicate API calls
     dealCache.setCache(id, dataToReturn);
 
-
+    // Send journey data
     res.json(dataToReturn);
 
   });
 
   app.get("/origin_cities", async (req: Request, res: Response) => {
+    // Return all origin cities from API helper file
     res.json(ORIGIN_CITIES);
   });
 
   app.get("/valid_destinations", dealCache.cacheMiddleware, async (req: Request, res: Response) => {
+    // Generate unique id for caching
     const id  = dealCache.stringit(req.query);
+
+    // TODO fix any typing
     const originCity: any = req.query.cityName;
 
     const dataToReturn = await getValidDestinations(originCity);
-
+    
+    // Cache valid destinations request to avoid unnecessary API calls
     dealCache.setCache(id, dataToReturn);
+    
+    // Send valid destination
     res.json(dataToReturn);
   });
 }
