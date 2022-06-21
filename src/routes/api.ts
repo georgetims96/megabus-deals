@@ -6,6 +6,7 @@ export function register(app: Application) {
   const dealCache = app.locals.mainCache;
 
   app.get("/deals", dealCache.cacheMiddleware, async (req: Request, res : Response) => {
+    const id = dealCache.stringit(req.query);
     // TODO fix any typing
     const sourceCity : any = req.query.sourceCity;
     const destinationCity : any = req.query.destinationCity;
@@ -57,10 +58,10 @@ export function register(app: Application) {
     const originCity: any = req.query.cityName;
 
     const dataToReturn = await getValidDestinations(originCity);
-    
+
     // Cache valid destinations request to avoid unnecessary API calls
     dealCache.setCache(id, dataToReturn);
-    
+
     // Send valid destination
     res.json(dataToReturn);
   });

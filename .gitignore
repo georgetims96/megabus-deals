@@ -5,4 +5,3 @@ dist/
 *.swp
 *.swo
 origin_cities.txt
-Dockerfile
