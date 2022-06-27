@@ -18,6 +18,7 @@
 15. (Contingent on 14) Let users add multiple round-trips to their basket
 16. Configure SSL certificate
 17. ~~Set up Docker container~~
+18. ~~Deploy app to aws~
 
 # Known Issues
 - Some non-$1-dollar deals are appearing
