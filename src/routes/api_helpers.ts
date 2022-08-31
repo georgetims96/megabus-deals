@@ -20,7 +20,8 @@ export async function getValidDates(originName: string, destinationName: string,
   // Pull all valid dates from Megabus API
   const response = await axios.get(`https://us.megabus.com/journey-planner/api/journeys/travel-dates?destinationCityId=${destinationId}&originCityId=${originId}`);
   // Only return dates on passed date
-  const dayVal : number = DATE_MAP.get(day);
+  // N.B. Adding one because on Ubuntu days are indexed differently
+  const dayVal : number = (1 + DATE_MAP.get(day)) % 7;
 
   // tslint:disable-next-line:no-console
   console.log(`Day: ${dayVal}`);
