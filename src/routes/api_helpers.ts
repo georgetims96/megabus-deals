@@ -22,6 +22,9 @@ export async function getValidDates(originName: string, destinationName: string,
   // Only return dates on passed date
   const dayVal : number = DATE_MAP.get(day);
 
+  // tslint:disable-next-line:no-console
+  console.log(`Day: ${dayVal}`);
+
   return response.data.availableDates.filter((date : string) => {
     const formattedDate : Date = new Date(date);
     return formattedDate.getDay() === dayVal;
@@ -49,7 +52,6 @@ export async function getJourneyOnDate(date: string, originId: number, destinati
 }
 
 export async function getJourneysOnDates(dates: string[], originName: string, destinationName: string, belowPrice: number = 1.00) : Promise<any[]> {
-  // FIXME: proper typing
   // Given cities names as strings, convert to Megabus IDs for API call
   const originId : number = getCityId(originName);
   const destinationId : number = getCityId(destinationName);
@@ -168,7 +170,7 @@ export const ORIGIN_CITIES : CityData = {
             "longitude": -75.91127
         },
         {
-            "id": 292,// tslint:disable-next-line:no-console
+            "id": 292,
             "name": "Birmingham, AL",
             "latitude": 33.52029,
             "longitude": -86.8115
@@ -233,7 +235,7 @@ export const ORIGIN_CITIES : CityData = {
             "latitude": 44.936905,
             "longitude": -91.39294
         },
-        {// tslint:disable-next-line:no-console
+        {
             "id": 101,
             "name": "Christiansburg, VA",
             "latitude": 37.13014,
@@ -309,7 +311,7 @@ export const ORIGIN_CITIES : CityData = {
             "id": 539,
             "name": "Eau Claire, WI",
             "latitude": 44.811348,
-            "longitude": -91.4985// tslint:disable-next-line:no-console
+            "longitude": -91.4985
         },
         {
             "id": 572,
@@ -542,7 +544,7 @@ export const ORIGIN_CITIES : CityData = {
         {
             "id": 476,
             "name": "Norfolk, VA",
-            "latitude": 36.83703,// tslint:disable-next-line:no-console
+            "latitude": 36.83703,
             "longitude": -76.28082
         },
         {
