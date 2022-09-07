@@ -546,8 +546,11 @@ JourneyBooker.prototype.buyMegabusTickets = function() {
   const returnUrl = `https://us.megabus.com/journey-planner/journeys?days=1&concessionCount=0&departureDate=${returnDate}&destinationId=${sourceID}&inboundOtherDisabilityCount=0&inboundPcaCount=0&inboundWheelchairSeated=0&nusCount=0&originId=${destID}&otherDisabilityCount=0&pcaCount=0&totalPassengers=1&wheelchairSeated=0`;
 
   // Open the relevant pages
-  window.open(outUrl);
+  // N.B. on mobile you cannot open two windows!
+  // window.open(outUrl);
   window.open(returnUrl);
+  window.location.href = outUrl;
+
 }
 
 // clarify any types
