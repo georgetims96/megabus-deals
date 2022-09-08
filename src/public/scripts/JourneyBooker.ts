@@ -90,6 +90,7 @@ JourneyBooker.prototype.constructJourneyButton = (journeyId : string, timeStampS
   curJourneySpan.id = `${listId}&${journeyId}`;
   curJourneySpan.classList.add("badge");
   curJourneySpan.classList.add("badge-secondary");
+  console.log(curJourneySpan.classList);
   curJourneySpan.appendChild(document.createTextNode(`${timeStampStr}`));
   // And return it
   return curJourneySpan;
