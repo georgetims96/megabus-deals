@@ -26,6 +26,7 @@
 - ~~Date is in UK format~~
 - ~~Don't have a "No Results Found" view~~
 - Destination selector messes up if clicked immediately after selecting origin
+- Icons disapppeared for search and buy!
 
 # What I've Learned
 - This is my first TypeScript-only project. I learned how to set up tsconfig and tslint files to my desired specification. I also learned how to use Express in TypeScript.
