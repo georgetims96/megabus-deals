@@ -108,10 +108,11 @@ JourneyBooker.prototype.constructDateLi = (dateStr : string, outOrReturn : strin
   // Create empty li element
   const newLi = document.createElement("li");
   newLi.id = `${listId}?${dateStr}`;
-  // First create the text node to indicate the date
+  // First create the 'strong' node to indicate the date
   const dateHeader = document.createElement("strong");
   dateHeader.innerHTML = dateStr;
   dateHeader.style.display = "block";
+  dateHeader.style.marginBottom = "0px";
   newLi.appendChild(dateHeader);
   // Return constructed li
   return newLi;
